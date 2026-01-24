@@ -1,0 +1,15 @@
+{
+    "versions": {
+        "packager": "0.1.0",
+        "package": "0.0.1"
+    },
+    "url": "github:szeka9/microPlot",
+    "layout": {
+        "/modules": [
+            "LM_microplot.py"
+        ],
+        "/web": [],
+        "/web/data": [],
+        "/data": []
+    }
+}

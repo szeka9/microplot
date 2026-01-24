@@ -1,0 +1,18 @@
+{
+    "version": "0.0.1",
+    "urls": [
+        [
+            "microPlot/__init__.py",
+            "github:szeka9/microPlot/package/__init__.py"
+        ],
+        [
+            "LM_microplot.py",
+            "github:szeka9/microPlot/package/LM_microplot.py"
+        ],
+        [
+            "microPlot/pacman.json",
+            "github:szeka9/microPlot/package/pacman.json"
+        ]
+    ],
+    "deps": []
+}
