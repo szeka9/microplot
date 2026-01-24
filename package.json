@@ -3,11 +3,11 @@
     "urls": [
         [
             "microPlot/__init__.py",
-            "github:szeka9/microPlot/package/__init__.py"
+            "github:szeka9/microPlot/package/backend/app/__init__.py"
         ],
         [
             "LM_microplot.py",
-            "github:szeka9/microPlot/package/LM_microplot.py"
+            "github:szeka9/microPlot/package/backend/app/LM_microplot.py"
         ],
         [
             "microPlot/pacman.json",

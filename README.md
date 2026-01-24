@@ -1,4 +1,4 @@
-# micrOS Application: microPlot
+# micrOS Application: microPlot (under development)
 A small G-code interpreter and plotter application written in MicroPython, integrated with [BxNxM/micrOS](https://github.com/BxNxM/micrOS). micrOS needs to be installed before using this package.
 
 
