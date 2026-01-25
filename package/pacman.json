@@ -3,7 +3,7 @@
         "packager": "0.1.0",
         "package": "0.0.1"
     },
-    "url": "github:szeka9/microPlot",
+    "url": "github:szeka9/microplot",
     "layout": {
         "/modules": [
             "LM_microplot.py"

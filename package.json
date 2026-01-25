@@ -2,16 +2,32 @@
     "version": "0.0.1",
     "urls": [
         [
-            "microPlot/__init__.py",
-            "github:szeka9/microPlot/package/backend/app/__init__.py"
+            "microplot/__init__.py",
+            "github:szeka9/microplot/package/backend/app/__init__.py"
         ],
         [
             "LM_microplot.py",
-            "github:szeka9/microPlot/package/backend/app/LM_microplot.py"
+            "github:szeka9/microplot/package/backend/app/LM_microplot.py"
         ],
         [
-            "microPlot/pacman.json",
-            "github:szeka9/microPlot/package/pacman.json"
+            "microplot/stepper.py",
+            "github:szeka9/microplot/package/backend/app/stepper.py"
+        ],
+        [
+            "microplot/speed_ctrl.py",
+            "github:szeka9/microplot/package/backend/app/speed_ctrl.py"
+        ],
+        [
+            "microplot/positioning.py",
+            "github:szeka9/microplot/package/backend/app/positioning.py"
+        ],
+        [
+            "microplot/machine.py",
+            "github:szeka9/microplot/package/backend/app/machine.py"
+        ],
+        [
+            "microplot/pacman.json",
+            "github:szeka9/microplot/package/pacman.json"
         ]
     ],
     "deps": []
