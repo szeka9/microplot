@@ -13,26 +13,26 @@ class SpeedController:
     Speed controller class for stepper motor and pen servo control.
     """
 
-    def __init__(self, target_delay_ms, step_delay_ms_init, acceleration_rate):
+    def __init__(self, target_delay_ms, init_delay_ms, acceleration_rate):
         if not 0 < acceleration_rate <= 1:
             raise ValueError(
                 f"invalid acceleration rate: {acceleration_rate} (must be between zero and one)"
             )
-        if step_delay_ms_init <= target_delay_ms:
+        if init_delay_ms <= target_delay_ms:
             raise ValueError(
                 (
                     "invalid values for acceleration profile: "
-                    "step_delay_ms_init must be higher than target_delay_ms"
+                    "init_delay_ms must be higher than target_delay_ms"
                 )
             )
 
-        self.step_delay_ms_init = step_delay_ms_init
+        self.init_delay_ms = init_delay_ms
         self.target_delay_ms = target_delay_ms
-        self.current_delay_ms = step_delay_ms_init
+        self.current_delay_ms = init_delay_ms
         self.previous_delay_ms = None
         self.acceleration_rate = acceleration_rate
         self.acceleration_step_ms = (
-            step_delay_ms_init - target_delay_ms
+            init_delay_ms - target_delay_ms
         ) * acceleration_rate
         self.accelerate = True
         self.decelerate = False
@@ -48,28 +48,26 @@ class SpeedController:
 
     def _recalculate_acceleration_step_ms(self):
         new_acceleration_step_ms = (
-            self.step_delay_ms_init - self.target_delay_ms
+            self.init_delay_ms - self.target_delay_ms
         ) * self.acceleration_rate
         if new_acceleration_step_ms <= 0:
             raise ValueError(
                 "Invalid acceleration delay calculated: "
-                + f"init:{self.step_delay_ms_init}, "
+                + f"init:{self.init_delay_ms}, "
                 + f"target: {self.target_delay_ms}, "
                 + f"acceleration_rate: {self.acceleration_rate}"
             )
         self.acceleration_step_ms = new_acceleration_step_ms
 
-    def update(
-        self, step_delay_ms_init=None, target_delay_ms=None, acceleration_rate=None
-    ):
+    def update(self, init_delay_ms=None, target_delay_ms=None, acceleration_rate=None):
         """
         Update variables for speed control.
-        :param step_delay_ms_init int:
+        :param init_delay_ms int:
         :param target_delay_ms int:
         :param acceleration_rate int:
         """
-        if step_delay_ms_init:
-            self.step_delay_ms_init = step_delay_ms_init
+        if init_delay_ms:
+            self.init_delay_ms = init_delay_ms
         if target_delay_ms:
             self.target_delay_ms = target_delay_ms
         if acceleration_rate:
@@ -92,7 +90,7 @@ class SpeedController:
         # Clamp junction factor
         junction_factor = max(0.0, min(junction_factor, 1.0))
         junction_delay_ms = self.target_delay_ms + (
-            self.step_delay_ms_init - self.target_delay_ms
+            self.init_delay_ms - self.target_delay_ms
         ) * (1.0 - junction_factor)
 
         # Decelerate
@@ -112,20 +110,34 @@ class SpeedController:
             )
 
     async def control(self):
-        """Sleep according to current delay and update speed."""
-        delay_override = self.current_delay_ms
+        """
+        Sleep according to the current delay while compensating
+        for previous loop overruns in a stable manner.
+        """
+        target_delay_us = int(self.current_delay_ms * 1000)
 
-        if self.last_step_us is not None:
-            delay_mismatch_prev = (
-                ticks_us() - self.last_step_us
-            ) * 1000 - self.previous_delay_ms
-            if delay_mismatch_prev > 0:
-                delay_override -= delay_mismatch_prev
-                if delay_override < 0:
-                    syslog(f"[WARN] plotter: negative timing {delay_override}ms")
-                delay_override = max(delay_override, 0)
+        now_us = ticks_us()
 
-        self.last_step_us = ticks_us()
+        if self.last_step_us is None:
+            # First iteration: no correction possible
+            delay_us = target_delay_us
+        else:
+            elapsed_us = now_us - self.last_step_us
+            mismatch_us = elapsed_us - self.previous_delay_us
 
-        self.previous_delay_ms = self.current_delay_ms
-        await asleep(delay_override / 1000)
+            if mismatch_us > 0:
+                max_correction_us = target_delay_us // 2
+                correction_us = min(mismatch_us, max_correction_us)
+
+                delay_us = target_delay_us - correction_us
+            else:
+                delay_us = target_delay_us
+
+        if delay_us < 0:
+            syslog(f"[WARN] plotter: negative timing {delay_us / 1000:.3f} ms")
+            delay_us = 0
+
+        self.last_step_us = now_us
+        self.previous_delay_us = delay_us
+
+        await asleep(delay_us / 1000000)
