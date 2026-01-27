@@ -28,6 +28,56 @@ class MachineBase:
     Base class for different plotter types.
     """
 
+    __slots__ = (
+        "primary_pins",
+        "secondary_pins",
+        "servo_pin",
+        "primary_limit_pin",
+        "servo_pin",
+        "primary_limit_pin",
+        "secondary_limit_pin",
+        "steps_per_revolution",
+        "step_delay_ms_rapid",
+        "step_delay_ms_linear",
+        "step_delay_ms_init",
+        "pen_delay_ms_init",
+        "pen_delay_ms_target",
+        "pen_acceleration_rate",
+        "min_pen_duty",
+        "max_pen_duty",
+        "backlash_steps_primary",
+        "backlash_steps_secondary",
+        "acceleration_rate",
+        "positioning",
+        "current_cs",
+        "cs_coordinates",
+        "cs_scaling",
+        "tile_grid_size",
+        "current_tile_idx",
+        "dir_forward",
+        "dir_backward",
+        "control_task_tag",
+        "file_session_task_tag",
+        "max_queue_length",
+        "gcode_queue",
+        "additional_info",
+        "user_data_root",
+        "primary_speed_controller",
+        "secondary_speed_controller",
+        "user_boundaries",
+        "global_boundaries",
+        "reject_oob",
+        "dir_primary",
+        "current_pos_primary",
+        "current_step_primary",
+        "dir_secondary",
+        "current_pos_secondary",
+        "current_step_secondary",
+        "activated",
+        "active_timeout",
+        "machine_paused",
+    )
+
     def __init__(
         self,
         primary_pins,  # List of pin objects for the primary stepper motor
@@ -420,6 +470,8 @@ class CartesianPlotter(MachineBase):
     Cartesian-type plotter child class.
     """
 
+    __slots__ = ("machine_type", "unit_per_revolution")
+
     def __init__(self, unit_per_revolution, **kwargs):
         super().__init__(**kwargs)
 
@@ -480,6 +532,8 @@ class ScaraPlotter(MachineBase):
     """
     SCARA-type plotter child class.
     """
+
+    __slots__ = ("machine_type", "radius_primary", "radius_secondary")
 
     def __init__(self, radius_primary, radius_secondary, **kwargs):
         super().__init__(**kwargs)
