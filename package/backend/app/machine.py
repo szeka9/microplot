@@ -465,11 +465,11 @@ class CartesianPlotter(MachineBase):
         :return status dict: primary and secondary limit switch status
         """
         diff_steps_primary = int(
-            ((x - positioning.get_primary_cartesian()) / self.unit_per_revolution)
+            ((x - self.get_primary_cartesian()) / self.unit_per_revolution)
             * self.steps_per_revolution
         )
         diff_steps_secondary = int(
-            ((y - positioning.get_secondary_cartesian()) / self.unit_per_revolution)
+            ((y - self.get_secondary_cartesian()) / self.unit_per_revolution)
             * self.steps_per_revolution
         )
 
