@@ -21,6 +21,10 @@ ctx = _MachineContext()
 
 
 def with_machine(func):
+    """
+    Decorator for implicitly passing
+    machine instance to callback functions.
+    """
     def decorated(*args, **kwargs):
         if not ctx.initialized:
             raise RuntimeError("Call load() first")
@@ -106,7 +110,7 @@ def _plotter_stop_clb(m: MachineBase, *_):
 @with_machine
 def _plotter_set_tiling_clb(m: MachineBase, grid_size: bytes):
     """
-    Callback function to set up work coordinate systems (WCS) for custom tiling
+    Callback function to set up work coordinate systems (WCS) for custom tiling.
     :param grid_size integer: size of the grid (2 <= n <= 3), will result in n*n tiles
     :return result tuple: content-type and message
     """
@@ -143,6 +147,11 @@ def _plotter_set_tiling_clb(m: MachineBase, grid_size: bytes):
 
 @with_machine
 def _plotter_switch_tile_clb(m: MachineBase, idx: bytes = None):
+    """
+    Callback function to change/increment work coordinate systems (WCS) for custom tiling.
+    :param idx integer: optional index for selecting WCS
+    :return result tuple: content-type and message
+    """
     if m.is_session_in_progress():
         raise ServerBusyException("busy\n")
 
@@ -164,6 +173,11 @@ def _plotter_switch_tile_clb(m: MachineBase, idx: bytes = None):
 
 
 def _plotter_play_clb(m: MachineBase, play_object_str: bytes):
+    """
+    Callback function for starting a new plotting session.
+    :param play_object_str bytes: json object containing the name of the file
+    :return result tuple: content-type and message
+    """
     if m.is_session_in_progress():
         raise ServerBusyException("busy\n")
 
@@ -227,6 +241,10 @@ async def __file_reader(m: MachineBase, sketch_name, workspaces=None, ms_period=
 
 @with_machine
 def _plotter_test_clb(m: MachineBase, *_):
+    """
+    Callback function for plotting a test pattern.
+    :return result tuple: content-type and message
+    """
     if m.is_session_in_progress():
         raise ServerBusyException("busy\n")
 
@@ -235,6 +253,10 @@ def _plotter_test_clb(m: MachineBase, *_):
 
 
 def setup_endpoints(m: MachineBase):
+    """
+    Register callback functions with a passed machine instance.
+    :param m MachineBase: machine object
+    """
     if ctx.initialized:
         del ctx.machine
     ctx.machine = m

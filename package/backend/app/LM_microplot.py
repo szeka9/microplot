@@ -50,7 +50,7 @@ async def run_command(m: MachineBase, command):
         return
 
     if parsed.tool_change_command:
-        await m.prepare_pen()
+        await m.prepare_tool()
         m.paused = True
         return
 
@@ -103,11 +103,11 @@ async def run_command(m: MachineBase, command):
     y = float(parsed.gcode_command.group(4))
 
     if mode == 0:
-        await m.raise_pen()
+        await m.raise_tool()
         delay_ms = m.step_delay_ms_rapid
 
     if mode == 1:
-        await m.lower_pen()
+        await m.lower_tool()
         delay_ms = m.step_delay_ms_linear
 
     # TODO: implement junction factor for SCARA too, this is only for cartesian as of now
@@ -185,7 +185,7 @@ async def __control_task(m: MachineBase, ms_period=10):
                         manage_task(m.file_session_task_tag, "kill")
 
                 if m.is_paused():
-                    await m.raise_pen()
+                    await m.raise_tool()
                 else:
                     command = ""
                     if len(m.gcode_queue):

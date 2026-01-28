@@ -10,7 +10,7 @@ from Common import syslog
 
 class SpeedController:
     """
-    Speed controller class for stepper motor and pen servo control.
+    Speed controller class for stepper motor and servo control.
     """
 
     def __init__(self, target_delay_ms, init_delay_ms, acceleration_rate):

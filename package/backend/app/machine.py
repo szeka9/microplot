@@ -40,11 +40,11 @@ class MachineBase:
         "step_delay_ms_rapid",
         "step_delay_ms_linear",
         "step_delay_ms_init",
-        "pen_delay_ms_init",
-        "pen_delay_ms_target",
-        "pen_acceleration_rate",
-        "min_pen_duty",
-        "max_pen_duty",
+        "tool_delay_ms_init",
+        "tool_delay_ms_target",
+        "tool_acceleration_rate",
+        "min_tool_duty",
+        "max_tool_duty",
         "backlash_steps_primary",
         "backlash_steps_secondary",
         "acceleration_rate",
@@ -82,18 +82,18 @@ class MachineBase:
         self,
         primary_pins,  # List of pin objects for the primary stepper motor
         secondary_pins,  # List of pin objects for the secondary stepper motor
-        servo_pin,  # PWM object for controlling the servo (pen)
+        servo_pin,  # PWM object for controlling the servo (tool)
         primary_limit_pin,  # Pin object for the primary motor's limit switch
         secondary_limit_pin,  # Pin object for the secondary motor's limit switch
         steps_per_revolution,  # Number of steps per a complete revolution (primary & secondary)
         step_delay_ms_rapid,  # Delay of milliseconds of rapid movement
         step_delay_ms_linear,  # Delay of milliseconds of linear movement
         step_delay_ms_init,  # Initial delay of milliseconds of any movement
-        pen_delay_ms_init,  # Initial delay of seconds of pen movement
-        pen_delay_ms_target,  # Target delay of seconds of pen movement
-        pen_acceleration_rate,  # Pen acceleration rate (0;1]
-        min_pen_duty,  # PWM duty cycle of the starting position of the servo (pen)
-        max_pen_duty,  # PWM duty cycle of the end position of the servo (pen)
+        tool_delay_ms_init,  # Initial delay of seconds of tool movement
+        tool_delay_ms_target,  # Target delay of seconds of tool movement
+        tool_acceleration_rate,  # Pen acceleration rate (0;1]
+        min_tool_duty,  # PWM duty cycle of the starting position of the servo (tool)
+        max_tool_duty,  # PWM duty cycle of the end position of the servo (tool)
         backlash_steps_primary,  # Number of steps measuring the primary motor's backlash
         backlash_steps_secondary,  # Number of steps measuring the secondary motor's backlash
         acceleration_rate,  # Stepper acceleration rate (0;1]
@@ -114,11 +114,11 @@ class MachineBase:
         self.step_delay_ms_rapid = step_delay_ms_rapid
         self.step_delay_ms_linear = step_delay_ms_linear
         self.step_delay_ms_init = step_delay_ms_init
-        self.pen_delay_ms_init = pen_delay_ms_init
-        self.pen_delay_ms_target = pen_delay_ms_target
-        self.pen_acceleration_rate = pen_acceleration_rate
-        self.min_pen_duty = min_pen_duty
-        self.max_pen_duty = max_pen_duty
+        self.tool_delay_ms_init = tool_delay_ms_init
+        self.tool_delay_ms_target = tool_delay_ms_target
+        self.tool_acceleration_rate = tool_acceleration_rate
+        self.min_tool_duty = min_tool_duty
+        self.max_tool_duty = max_tool_duty
         self.backlash_steps_primary = backlash_steps_primary
         self.backlash_steps_secondary = backlash_steps_secondary
         self.acceleration_rate = acceleration_rate
@@ -229,16 +229,16 @@ class MachineBase:
         console(f"Relative positioning: {enabled}")
         return enabled
 
-    async def position_pen(self, target):
+    async def position_tool(self, target):
         """
-        Position the pen in the range of [0; 100] mapped to the configured PWM cycles
+        Position the tool in the range of [0; 100] mapped to the configured PWM cycles
         :param target int: target position
         """
         if target not in range(0, 101):
             raise ValueError(f"invalid target position: {target}")
 
         target_duty = int(
-            self.min_pen_duty + (self.max_pen_duty - self.min_pen_duty) * (target) / 100
+            self.min_tool_duty + (self.max_tool_duty - self.min_tool_duty) * (target) / 100
         )
         current_duty = self.servo_pin.duty()
 
@@ -246,7 +246,7 @@ class MachineBase:
             return
 
         with SpeedController(
-            self.pen_delay_ms_target, self.pen_delay_ms_init, self.pen_acceleration_rate
+            self.tool_delay_ms_target, self.tool_delay_ms_init, self.tool_acceleration_rate
         ) as ctrl:
             if current_duty < target_duty:
                 for duty in range(current_duty, target_duty + 1, 1):
@@ -259,23 +259,23 @@ class MachineBase:
                     ctrl.update_speed(target_duty - duty)
                     await ctrl.control()
 
-    async def raise_pen(self):
+    async def raise_tool(self):
         """
-        Raise plotter pen.
+        Raise the plotter tool.
         """
-        await self.position_pen(100)
+        await self.position_tool(100)
 
-    async def prepare_pen(self):
+    async def prepare_tool(self):
         """
-        Raise the pen holder to a position, where the pen can be mounted.
+        Raise the tool holder to a position, where the tool can be mounted.
         """
-        await self.position_pen(50)
+        await self.position_tool(50)
 
-    async def lower_pen(self):
+    async def lower_tool(self):
         """
-        Lower plotter pen smoothly.
+        Lower plotter tool smoothly.
         """
-        await self.position_pen(0)
+        await self.position_tool(0)
 
     def is_primary_limit(self):
         """

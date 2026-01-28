@@ -13,7 +13,7 @@ async def home_cycle(m: MachineBase):
     """
     Homing routine to find x=0, y=0 based on limit switches.
     """
-    await m.raise_pen()
+    await m.raise_tool()
 
     if True in m.limit_status().values():
         raise LimitSwitchException("limit switch hit before homing cycle")
@@ -140,7 +140,6 @@ async def measure_step_loss(m: MachineBase):
 async def measure_workspace(m: MachineBase):
     """
     Measure the size of usable workspace, and adjust global boundaries.
-    :param delay_ms int: step delay in microseconds
     """
     await home_cycle(m)
     await m.move_to(
@@ -212,7 +211,6 @@ async def measure_workspace(m: MachineBase):
 async def measure_feedrate(m: MachineBase):
     """
     Measure the size of usable workspace, and adjust global boundaries.
-    :param delay_ms int: step delay in microseconds
     """
     for delay_ms in [m.step_delay_ms_rapid, m.step_delay_ms_linear]:
         await home_cycle(m)
@@ -246,11 +244,16 @@ async def measure_feedrate(m: MachineBase):
     home_cycle(m)
 
 
-async def unblock_limit(m: MachineBase, axis, direction):
+async def unblock_limit(m: MachineBase, axis: str, direction: str):
+    """
+    Unlbock axis that triggered a limit switch.
+    :param axis str: name of the axis (e.g. "x", "y")
+    :param direction str: axis direction ("-" or "+")
+    """
     if not m.is_primary_limit() and not m.is_secondary_limit():
         return
 
-    await m.raise_pen()
+    await m.raise_tool()
 
     axis = axis.lower()
     current_pos_x = m.get_current_pos()["sum"][0]
@@ -273,5 +276,8 @@ async def unblock_limit(m: MachineBase, axis, direction):
 
 
 async def eject_workspace(m: MachineBase):
-    await m.raise_pen()
+    """
+    Raise the tool and move it away from the workspace.
+    """
+    await m.raise_tool()
     await m.move_to(m.global_boundaries["x_max"] / 2, m.global_boundaries["y_max"] - 5)
