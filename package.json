@@ -2,6 +2,10 @@
     "version": "0.0.1",
     "urls": [
         [
+            "microplot/pacman.json",
+            "github:szeka9/microplot/package/pacman.json"
+        ],
+        [
             "microplot/__init__.py",
             "github:szeka9/microplot/package/backend/app/__init__.py"
         ],
@@ -10,24 +14,32 @@
             "github:szeka9/microplot/package/backend/app/LM_microplot.py"
         ],
         [
-            "microplot/stepper.py",
-            "github:szeka9/microplot/package/backend/app/stepper.py"
+            "microplot/gcode.py",
+            "github:szeka9/microplot/package/backend/app/gcode.py"
         ],
         [
-            "microplot/speed_ctrl.py",
-            "github:szeka9/microplot/package/backend/app/speed_ctrl.py"
-        ],
-        [
-            "microplot/positioning.py",
-            "github:szeka9/microplot/package/backend/app/positioning.py"
+            "microplot/http_api.py",
+            "github:szeka9/microplot/package/backend/app/http_api.py"
         ],
         [
             "microplot/machine.py",
             "github:szeka9/microplot/package/backend/app/machine.py"
         ],
         [
-            "microplot/pacman.json",
-            "github:szeka9/microplot/package/pacman.json"
+            "microplot/positioning.py",
+            "github:szeka9/microplot/package/backend/app/positioning.py"
+        ],
+        [
+            "microplot/routines.py",
+            "github:szeka9/microplot/package/backend/app/routines.py"
+        ],
+        [
+            "microplot/speed_ctrl.py",
+            "github:szeka9/microplot/package/backend/app/speed_ctrl.py"
+        ],
+        [
+            "microplot/stepper.py",
+            "github:szeka9/microplot/package/backend/app/stepper.py"
         ]
     ],
     "deps": []
