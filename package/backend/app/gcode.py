@@ -29,7 +29,7 @@ class ParsingResult:
 
     def __init__(self):
         for attr in self.__slots__:
-            self.__setattr__(attr, None)
+            setattr(self, attr, None)
 
 
 def motion_command(command: str):

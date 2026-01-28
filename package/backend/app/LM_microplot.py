@@ -9,7 +9,7 @@ from utime import time
 from Common import micro_task, syslog, manage_task, console
 
 from microplot import stepper, positioning
-from microplot.gcode import parse_command, parse_motion_command
+from microplot.gcode import parse_command, motion_command
 from microplot.machine import MachineBase, LimitSwitchException, read_from_config
 from microplot.routines import  home_cycle
 from microplot.http_api import setup_endpoints
@@ -117,7 +117,7 @@ async def run_command(m: MachineBase, command):
     if not m.gcode_queue:
         junction_factor = 0
     else:
-        next_command = parse_motion_command(m.gcode_queue[0])
+        next_command = motion_command(m.gcode_queue[0])
         if next_command:
             next_mode = int(next_command.group(1))
             if next_mode != mode:
