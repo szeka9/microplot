@@ -28,8 +28,14 @@ class ParsingResult:
     )
 
     def __init__(self):
+        self.reset()
+
+    def reset(self):
         for attr in self.__slots__:
             setattr(self, attr, None)
+
+
+_GLOBAL_PARSING_RESULT = ParsingResult()
 
 
 def motion_command(command: str):
@@ -133,7 +139,8 @@ def scaling_command(command: str):
 
 def parse_command(command: str):
 
-    result = ParsingResult()
+    result = _GLOBAL_PARSING_RESULT
+    result.reset()
 
     result.gcode_command = motion_command(command)
     result.positioning_command = positioning_command(command)
