@@ -40,6 +40,50 @@
         [
             "microplot/stepper.py",
             "github:szeka9/microplot/package/backend/app/stepper.py"
+        ],
+        [
+            "microplot/web/dashboard.html",
+            "github:szeka9/microplot/package/frontend/app/dashboard.html"
+        ],
+        [
+            "microplot/web/index.html",
+            "github:szeka9/microplot/package/frontend/app/index.html"
+        ],
+        [
+            "microplot/web/player.html",
+            "github:szeka9/microplot/package/frontend/app/player.html"
+        ],
+        [
+            "microplot/web/sketchpad.html",
+            "github:szeka9/microplot/package/frontend/app/sketchpad.html"
+        ],
+        [
+            "microplot/web/boot.js",
+            "github:szeka9/microplot/package/frontend/app/scripts/boot.js"
+        ],
+        [
+            "microplot/web/dashboard.js",
+            "github:szeka9/microplot/package/frontend/app/scripts/dashboard.js"
+        ],
+        [
+            "microplot/web/player.js",
+            "github:szeka9/microplot/package/frontend/app/scripts/player.js"
+        ],
+        [
+            "microplot/web/sketchpad.js",
+            "github:szeka9/microplot/package/frontend/app/scripts/sketchpad.js"
+        ],
+        [
+            "microplot/web/tiling.js",
+            "github:szeka9/microplot/package/frontend/app/scripts/tiling.js"
+        ],
+        [
+            "microplot/web/utils.js",
+            "github:szeka9/microplot/package/frontend/app/scripts/utils.js"
+        ],
+        [
+            "microplot/web/style.css",
+            "github:szeka9/microplot/package/frontend/app/sytles/sytle.css"
         ]
     ],
     "deps": []

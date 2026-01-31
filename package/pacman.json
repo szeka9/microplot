@@ -8,7 +8,23 @@
         "/modules": [
             "LM_microplot.py"
         ],
-        "/web": [],
+        "/web/plotter": [
+            "web/dashboard.html",
+            "web/index.html",
+            "web/player.html",
+            "web/sketchpad.html"
+        ],
+        "/web/plotter/scripts": [
+            "web/boot.js",
+            "web/dashboard.js",
+            "web/player.js",
+            "web/sketchpad.js",
+            "web/tiling.js",
+            "web/utils.js"
+        ],
+        "/web/plotter/sytles": [
+            "web/style.css"
+        ],
         "/web/data": [],
         "/data": []
     }

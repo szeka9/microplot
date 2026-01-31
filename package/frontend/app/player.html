@@ -1,0 +1,42 @@
+<!--<meta http-equiv="refresh" content="0;url=/plotter/index.html#home">-->
+<div id="preview-container">
+    <table id="image-grid">
+        <tr>
+            <td><img src="" id="preview-image"></img></td>
+        </tr>
+    </table>
+    <div id="preview-user-input-wrapper">
+        <div id="preview-user-input">
+            <span>Tiles: <input id="tiling-size" type="range" min="1" max="3" value="1" /></span>
+            <br>
+            <button id="play-sketch">Start</button>
+        </div>
+        <div id="close-preview" class="x">X</div>
+    </div>
+</div>
+<div id="table-container">
+    <input id="file-upload" type="file" hidden>
+    <button id="upload-button" onclick="document.getElementById('file-upload').click()">Upload</button>
+    <table id="file-manager">
+        <thead id="file-manager-head">
+            <tr>
+                <td>File Name</td>
+                <td>Size</td>
+                <td>Upload Date</td>
+                <td id="player-actions-header"></td>
+            </tr>
+        </thead>
+        <tbody id="file-manager-body">
+            <!--<tr>
+                <td>sketch_01.gcode</td>
+                <td>1MB</td>
+                <td>2025-01-01 14:45</td>
+            </tr>
+            <tr>
+                <td>sketch_02.gcode</td>
+                <td>500KB</td>
+                <td>2025-03-01 16:32</td>
+            </tr>-->
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,87 @@
+<!--<meta http-equiv="refresh" content="0;url=/plotter/index.html#dashboard">-->
+<div id="dashboard-gui">
+    <div id="gcode-utils">
+        <div id="gcode-col">
+            <textarea readonly id="command-history"
+                placeholder="Send G-code commands.&#10;&#13;Type help to get available commands." rows="10"></textarea>
+            <div id="command-sender-gui">
+                <input id="command-sender" type="text"></input>
+                <button id="send-command-button">Send</button>
+            </div>
+        </div>
+
+        <div id="machine-functions">
+            <div id="machine-endpoints">
+                <button id="pause-button">Pause</button>
+                <button id="stop-button">Stop</button>
+                <button id="test-button">Test</button>
+            </div>
+            <div id="machine-commands">
+                <button id="workspace-button">Workspace</button>
+                <button id="step-loss-button">Step loss</button>
+                <button id="feedrates-button">Feedrates</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboard-utils">
+        <div class="dashboard-utils-top">
+            <div id="status-col">
+                <p>CS: <span id="coordinate-system">-</span></p>
+                <p>X: <span id="x-status">-</span></p>
+                <p>Y: <span id="y-status">-</span></p>
+                <p>Mode: <span id="mode-status">-</span></p>
+                <p>Active: <span id="active-status">-</span></p>
+                <p>Queue: <span id="queue-status">-</span></p>
+                <p>Paused: <span id="paused-status">-</span></p>
+                <p>Limit: <span id="limit-status">-</span></p>
+            </div>
+            <div id="event-col">
+                <textarea readonly id="event-history" rows="13" placeholder="events"></textarea>
+            </div>
+        </div>
+        <div class="dashboard-utils-bottom">
+            <div id="dashboard-utils-motion-settings">
+                <input id="step-slider" type="range" min="1" max="10" step="1" value="1" />
+                <p>Step: <span id="step-slider-value">1mm</span></p>
+            </div>
+            <div id="dashboard-utils-motion">
+                <table id="button-container">
+                    <tr>
+                        <td>
+                            <button id="up-left-button">&#9720</button>
+                        </td>
+                        <td>
+                            <button id="up-button">&#9651</button>
+                        </td>
+                        <td>
+                            <button id="up-right-button">&#9721</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button id="left-button">&#9665</button>
+                        </td>
+                        <td>
+                            <button id="pen-flip">&#9678</button>
+                        </td>
+                        <td>
+                            <button id="right-button">&#9655</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button id="down-left-button">&#9722</button>
+                        </td>
+                        <td>
+                            <button id="down-button">&#9661</button>
+                        </td>
+                        <td>
+                            <button id="down-right-button">&#9727</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

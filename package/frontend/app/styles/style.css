@@ -1,0 +1,504 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.content {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+}
+
+#subpage-content {
+    max-height: 100%;
+    display: flex;
+}
+
+#preview-container {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 5%;
+    padding-top: 1rem;
+    vertical-align: middle;
+    justify-content: space-between;
+    column-gap: 10px;
+    flex-direction: row;
+}
+
+#image-grid {
+    width: 55%;
+    border-radius: 10px;
+    background-color: white;
+    height: min-content;
+}
+
+
+#image-grid img {
+    border-radius: 10px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+}
+
+#image-grid img:hover {
+    opacity: 1;
+}
+
+#image-grid td.active img {
+    opacity: 1;
+}
+
+#preview-user-input-wrapper {
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: min-content;
+}
+
+#preview-user-input {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    background-color: #2c3e50;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+#preview-image {
+    border-radius: 10px;
+}
+
+#preview-user-input [type="range"] {
+    width: 100%;
+    margin: 0;
+}
+
+.x {
+    font-weight: bold;
+    color: #fff;
+    font-size: large;
+}
+
+#table-container {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+#upload-button {
+    width: 25%;
+    height: 30px;
+    max-width: calc(30px * 7);
+    margin-bottom: 1rem;
+    background-color: #1abc9c;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    border: 1px solid black;
+}
+
+#file-manager {
+    border: 1px solid black;
+    border-radius: 5px;
+    border-spacing: 0;
+    width: 100%;
+}
+
+#file-manager-head td {
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    background-color: #2c3e50;
+    color: white;
+}
+
+#file-manager td {
+    padding: 0.25rem;
+}
+
+.player-actions {
+    text-align: center;
+}
+
+.player-actions img {
+    width: 1rem;
+    margin: 0.5rem;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.player-actions img:hover {
+    transform: scale(0.9);
+    opacity: 0.7;
+}
+
+#player-actions-header {
+    width: 20%;
+}
+
+#sketchpad {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+#sketchpad-control {
+    min-width: 15ch;
+}
+
+#sketchpad-control button {
+    width: 100%;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+#sketchpad-utils {
+    display: flex;
+    column-gap: 10px;
+    flex-direction: row;
+    width: 100%;
+}
+
+#sketchpad-utils button {
+    height: 2rem;
+}
+
+#sketchpad #canvas {
+    aspect-ratio: 1/1;
+}
+
+#resolution-input {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+#canvas {
+    border: 1px solid black;
+}
+
+body,
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-tabs {
+    display: flex;
+    list-style: none;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.nav-tabs a {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: #ecf0f1;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.nav-tabs a:hover {
+    background-color: #34495e;
+}
+
+.nav-tabs a.active {
+    background-color: #1abc9c;
+    color: white;
+    font-weight: bold;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #2c3e50;
+    padding: 0.5rem 1rem;
+}
+
+textarea {
+    resize: none;
+}
+
+#dashboard-gui {
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+#gcode-utils {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+#gcode-col {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    min-width: 20ch;
+    overflow: hidden;
+}
+
+#command-sender-gui {
+    display: flex;
+    column-gap: 0.25rem;
+}
+
+#command-sender {
+    width: 70%;
+}
+
+#command-sender-gui>button {
+    width: 30%;
+}
+
+#dashboard-utils {
+    width: 50%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-utils-top {
+    display: flex;
+    flex-direction: row;
+    height: 70%;
+    overflow: hidden;
+}
+
+.dashboard-utils-bottom {
+    display: flex;
+    flex-direction: row;
+    height: 30%;
+    margin-top: 1rem;
+}
+
+#dashboard-utils-motion-settings {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+}
+
+#dashboard-utils-motion-settings input {
+    width: 80%;
+}
+
+#dashboard-utils-motion {
+    width: 60%;
+}
+
+#command-history {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0.25rem;
+}
+
+#status-col {
+    width: 13ch;
+    width: 40%;
+    margin-left: 1rem;
+    overflow: scroll;
+}
+
+#status-col p {
+    margin: 0 0 0.25rem 0;
+    font-weight: bold;
+}
+
+#status-col span {
+    font-weight: normal;
+}
+
+#event-col {
+    width: 60%;
+    height: 100%;
+}
+
+#event-history,
+#sketchpad-output {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    font-size: small;
+    background-color: rgb(210, 210, 210);
+    min-width: 20ch;
+    margin: 0;
+}
+
+#machine-functions {
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+#machine-functions button {
+    height: 100%;
+    margin-bottom: 0.125rem;
+    margin-top: 0.125rem;
+}
+
+
+#machine-endpoints {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-right: 0.125rem;
+}
+
+#machine-commands {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-left: 0.125rem;
+}
+
+#button-container {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 3px;
+    border-spacing: 0.25rem;
+    border-collapse: separate;
+}
+
+#button-container tr {
+    height: 33%;
+}
+
+#button-container td {
+    padding: 0;
+    margin: 0;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+#button-container button {
+    width: 100%;
+    height: 100%;
+}
+
+footer {
+    padding: 0.25rem;
+    height: 1rem;
+    font-size: smaller;
+    color: white;
+    background-color: #2c3e50;
+}
+
+#dashboard-gui,
+#table-container,
+#sketchpad {
+    width: clamp(600px, 80vw, 1600px);
+}
+
+@media (min-aspect-ratio: 2.5/1) {
+
+    #dashboard-gui,
+    #table-container,
+    #sketchpad {
+        width: clamp(600px, 50vw, 1600px);
+    }
+}
+
+@media (max-aspect-ratio: 1.5/1) {
+    #sketchpad {
+        flex-direction: column;
+        justify-content: flex-start;
+        row-gap: 10px;
+    }
+
+    #file-manager {
+        font-size: small;
+    }
+
+    #dashboard-gui {
+        flex-direction: column;
+    }
+
+    #gcode-utils {
+        width: 100%;
+        height: fit-content;
+        margin-bottom: 0.5rem;
+    }
+
+    #dashboard-utils {
+        margin-top: 0.5rem;
+        width: 100%;
+        padding-bottom: 1rem;
+    }
+
+    #sketchpad-utils {
+        padding-bottom: 1rem;
+    }
+
+    #machine-functions {
+        margin-top: 1rem;
+    }
+
+    #status-col {
+        margin: 0;
+    }
+
+    #dashboard-utils-motion-settings {
+        margin-left: 0;
+    }
+
+    #dashboard-gui,
+    #table-container,
+    #sketchpad {
+        width: 90vw;
+    }
+}
+
+@media (max-aspect-ratio: 1/1.25) {
+    #preview-container {
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+    }
+
+    #image-grid {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 1rem;
+    }
+
+    #preview-user-input-wrapper {
+        margin-right: auto;
+        width: 100%;
+    }
+}
